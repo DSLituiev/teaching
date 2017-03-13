@@ -69,12 +69,11 @@
   . *decoder* unpacks / interprets / decompresses the low-dimensional hidden / latent representation into the _reconstruction_ of a sample
  + by learning encoding and decoding, the model learns the internal dependencies between features in the real-world data and thus the way to compress the data.
 
-
-    high dimensional observation ->
-    | encoder | ->
-    low dimensional hidden / latent representation ->
-    | decoder | ->
-    high dimensional reconstruction
+     high dimensional observation ->
+     | encoder | ->
+     low dimensional hidden / latent representation ->
+     | decoder | ->
+     high dimensional reconstruction
     
 
 ## Applications
