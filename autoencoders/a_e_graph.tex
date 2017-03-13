@@ -1,0 +1,66 @@
+% System Combination
+% Harish K Krishnamurthy <www.ece.neu.edu/~hkashyap/>
+\documentclass{article}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,shadows}
+\usepackage{amsmath,bm,times}
+\newcommand{\mx}[1]{\mathbf{\bm{#1}}} % Matrix command
+\newcommand{\vc}[1]{\mathbf{\bm{#1}}} % Vector command
+\usetikzlibrary{calc}
+
+\begin{document}
+% Define the layers to draw the diagram
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+% Define block styles used later
+
+\tikzstyle{sensor}=[draw, fill=blue!20, text width=6em, 
+    line width=0.25mm,
+    text centered, minimum height=3.5em,drop shadow]
+%\tikzstyle{ann} = [above, text width=5em, text centered]
+\tikzstyle{state} = [circle, text width=6em, fill=red!20, 
+    minimum height=6em, rounded corners, drop shadow]
+\tikzstyle{cartouche} = [line width=0.25mm]
+%\tikzstyle{sc} = [sensor, text width=13em, fill=red!20, 
+%    minimum height=10em, rounded corners, drop shadow]
+
+% Define distances for bordering
+\def\blockdist{1.5}
+\def\halfblock{0.75}
+\def\edgedist{2.5}
+
+\begin{tikzpicture}[every node/.style={align=center,anchor=mid},
+		every path/.style={line width=1.25mm}]
+    \node (hid) [state]  {Hidden \\ Representation};
+    \path (hid.south west)+(-\blockdist, -\blockdist) node (enc)[sensor] {Encoder};
+    \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state] {Observation};    
+    \path (hid.south east)+(\blockdist, -\blockdist) node (dec) [sensor] {Decoder};
+    \path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state] {Reconstruction};
+
+    \path [draw, ->] (enc.north) -- node [above] {} (hid);
+    \path [draw, ->] (obs.north east) -- node [above] {} (enc);
+    \path [draw, ->] (hid.south east) -- node [above] {} (dec);
+    \path [draw, ->] (dec.south east) -- node [above] {} (rec);
+
+    
+     \node (diff) at ($(obs)!0.5!(rec)$)  {Difference};
+    %\path (hid.south)  +(0,-2.25*\blockdist) node (diff) {Difference};
+  
+    \path [draw, ->, dashed] (diff) -- node [above] {} (obs);
+    \path [draw, ->, dashed] (diff) -- node [above] {} (rec);
+  
+    \begin{pgfonlayer}{background}  
+       \path (obs.west |- hid.north)+(-0.5, 1) node (a) {};
+        \path(hid.south -| hid.east)+(+0.5,-0.3) node (b) {};
+        \path (rec.east |- obs.east)+(+0.5, -\blockdist) node (c) {};
+          
+        \path[fill=yellow!20,rounded corners, draw=black!50, solid, line width=0.3mm]
+            (a) rectangle (c);           
+        \path (obs.north west)+(-0.2,0.2) node (a) {};
+    \end{pgfonlayer}
+\end{tikzpicture}
+
+\end{document}
