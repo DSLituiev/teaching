@@ -24,27 +24,28 @@
     (Bengio 2014) learning representations of the data that make it easier to extract useful information when building classifiers or other predictors. A good representation is also one that is useful as input to a supervised predictor.One of the challenges of representation learning that distinguishes it from other machine learning tasks such as classification is the difficulty in establishing a clear objective, or target for training.
 
 ## Background: compression requires learning joint distribution of features
-    + features: e.g. pixels of an image, ordered letters of a text, ordered nucleotides in DNA, stock price at each time step.
-    + compression: get a shorter description of data
-      . compression works by identifying statistical redundancy
-      .
-    + types of compression
-      . lossless compression
-      . lossy compression
 
-    + classical examples of compression algorithms for multivariate continous data:
-      . PCA
-      . ICA
-      . autoenconders: linear autoencoder under mean square loss is equivalent to PCA (Goodfellow book)
+ + features: e.g. pixels of an image, ordered letters of a text, ordered nucleotides in DNA, stock price at each time step.
+ + compression: get a shorter description of data
+   . compression works by identifying statistical redundancy
+   .
+ + types of compression
+   . lossless compression
+   . lossy compression
+
+ + classical examples of compression algorithms for multivariate continous data:
+   . PCA
+   . ICA
+   . autoenconders: linear autoencoder under mean square loss is equivalent to PCA (Goodfellow book)
 
 ## Objectives of training of an auto-encoder
 
-  + compression / dimensionality reduction: perform lossy compression of data, distills the number of features (if we regard latent representation as new features)
-  + representation learning: learn interdependencies between features (joint distribution)
-  + generative model: find a way to generate samples with given joint distribution
-  + semi-supervised / transfer learning: find a way to use unlabeled data to improve performance of supervised models.
-  + noise reduction: produce a noiseless reconstruction of a noisy signal
-  + source separation
+ + compression / dimensionality reduction: perform lossy compression of data, distills the number of features (if we regard latent representation as new features)
+ + representation learning: learn interdependencies between features (joint distribution)
+ + generative model: find a way to generate samples with given joint distribution
+ + semi-supervised / transfer learning: find a way to use unlabeled data to improve performance of supervised models.
+ + noise reduction: produce a noiseless reconstruction of a noisy signal
+ + source separation
 
 
 
