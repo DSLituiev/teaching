@@ -22,11 +22,14 @@
   - Unsupervised: no label, only features
 
  + Representation learning
+ 
     (Bengio 2014) learning representations of the data that make it easier to extract useful information when building classifiers or other predictors. A good representation is also one that is useful as input to a supervised predictor.One of the challenges of representation learning that distinguishes it from other machine learning tasks such as classification is the difficulty in establishing a clear objective, or target for training.
 
 ## Background: compression requires learning joint distribution of features
 
- + features: e.g. pixels of an image, ordered letters of a text, ordered nucleotides in DNA, stock price at each time step.
+ + features: 
+  e.g. pixels of an image, ordered letters of a text, ordered nucleotides in DNA, stock price at each time step.
+ 
  + compression: get a shorter description of data
   - compression works by identifying statistical redundancy
 
