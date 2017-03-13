@@ -38,16 +38,18 @@
       . autoenconders: linear autoencoder under mean square loss is equivalent to PCA (Goodfellow book)
 
 ## Objectives of training of an auto-encoder
-    + compression / dimensionality reduction: perform lossy compression of data, distills the number of features (if we regard latent representation as new features)
-    + representation learning: learn interdependencies between features (joint distribution)
-    + generative model: find a way to generate samples with given joint distribution
-    + semi-supervised / transfer learning: find a way to use unlabeled data to improve performance of supervised models.
-    + noise reduction: produce a noiseless reconstruction of a noisy signal
-    + source separation
+
+  + compression / dimensionality reduction: perform lossy compression of data, distills the number of features (if we regard latent representation as new features)
+  + representation learning: learn interdependencies between features (joint distribution)
+  + generative model: find a way to generate samples with given joint distribution
+  + semi-supervised / transfer learning: find a way to use unlabeled data to improve performance of supervised models.
+  + noise reduction: produce a noiseless reconstruction of a noisy signal
+  + source separation
 
 
 
-## Auto-encoders are generative, unsupervised models 
+## Auto-encoders are generative, unsupervised models
+
  + require no labels
  + learn joint distribution of features
     (internal structure of the data)
@@ -56,10 +58,11 @@
 
 
 ## General Architecture
-    + auto-encoders have two basic parts: encoder and decoder
-        + *encoder* compresses a multi-dimensional observed data sample to a low-dimensional hidden representation of a sample
-        + *decoder* unpacks / interprets / decompresses the low-dimensional hidden / latent representation into the _reconstruction_ of a sample
-    + by learning encoding and decoding, the model learns the internal dependencies between features in the real-world data and thus the way to compress the data.
+
+ + auto-encoders have two basic parts: encoder and decoder
+  . *encoder* compresses a multi-dimensional observed data sample to a low-dimensional hidden representation of a sample
+  . *decoder* unpacks / interprets / decompresses the low-dimensional hidden / latent representation into the _reconstruction_ of a sample
+ + by learning encoding and decoding, the model learns the internal dependencies between features in the real-world data and thus the way to compress the data.
 
 
     high dimensional observation ->
@@ -72,6 +75,7 @@
 ## Applications
 
 ## Review of basic definitions (2)
+
  + Variational inference
     . task: approximate an unknown *real-world* posterior probability distribution P(hidden|observed) of arbitrary shape using some parametrized *model* distribution Q(hidden|observed)
     . given: observed samples that characterize P(observed), family of Q(h|o) functions
