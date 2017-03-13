@@ -10,16 +10,16 @@
 ## Review of basic definitions (1)
  + Generative vs Discriminative models
  
-  . Discriminative: 
+  - Discriminative: 
         learn conditional probability of Y given X:
         what is probability of _labels_ given a _vector of features_?
-  . Generative
+  - Generative
         learn joint distribution pairs of _labels_ and _feature vectors_
         there is no assymetry, labels are treated same way as features, 
 
  + Unsupervised learning vs Supervised learning
-    . Supervised: a label/target is provided together with a feature vector
-    . Unsupervised: no label, only features
+  - Supervised: a label/target is provided together with a feature vector
+  - Unsupervised: no label, only features
 
  + Representation learning
     (Bengio 2014) learning representations of the data that make it easier to extract useful information when building classifiers or other predictors. A good representation is also one that is useful as input to a supervised predictor.One of the challenges of representation learning that distinguishes it from other machine learning tasks such as classification is the difficulty in establishing a clear objective, or target for training.
@@ -28,16 +28,16 @@
 
  + features: e.g. pixels of an image, ordered letters of a text, ordered nucleotides in DNA, stock price at each time step.
  + compression: get a shorter description of data
-  . compression works by identifying statistical redundancy
-  .
+  - compression works by identifying statistical redundancy
+
  + types of compression
-  . lossless compression
-  . lossy compression
+  - lossless compression
+  - lossy compression
 
  + classical examples of compression algorithms for multivariate continous data:
-  . PCA
-  . ICA
-  . autoenconders: linear autoencoder under mean square loss is equivalent to PCA (Goodfellow book)
+  - PCA
+  - ICA
+  - autoenconders: linear autoencoder under mean square loss is equivalent to PCA (Goodfellow book)
 
 ## Objectives of training of an auto-encoder
 
