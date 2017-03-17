@@ -1,0 +1,97 @@
+% System Combination
+% Harish K Krishnamurthy <www.ece.neu.edu/~hkashyap/>
+\documentclass[class=scrreprt,border=0pt]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,shadows,positioning}
+\usepackage{amsmath,bm,times}
+\newcommand{\mx}[1]{\mathbf{\bm{#1}}} % Matrix command
+\newcommand{\vc}[1]{\mathbf{\bm{#1}}} % Vector command
+\usetikzlibrary{calc}
+
+\begin{document}
+% Define the layers to draw the diagram
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+% Define block styles used later
+
+
+\tikzstyle{optim}=[draw, ->, dashed, color=green!30!black]
+
+
+\tikzstyle{sensor}=[draw, fill=blue!20, text width=6em, 
+    line width=0.25mm,
+    text centered, minimum height=3.0em,drop shadow]
+\tikzstyle{ann} = [fill=blue!5, 
+    line width=0.25mm,
+    text centered, minimum height=3.5em,drop shadow]
+\tikzstyle{state} = [circle, text width=5.5em, minimum height=5.5em, 
+	fill=red!20, anchor=center,
+    rounded corners, drop shadow]
+\tikzstyle{cartouche} = [line width=0.25mm]
+%\tikzstyle{sc} = [sensor, text width=13em, fill=red!20, 
+%    minimum height=10em, rounded corners, drop shadow]
+
+% Define distances for bordering
+\def\blockdist{2.0}
+\def\halfblock{1.0}
+\def\edgedist{2.5}
+
+\begin{tikzpicture}[every node/.style={align=center,anchor=mid},
+		every path/.style={line width=1.25mm}]
+    \node (hid) at (0,0) [state]  {Hidden \\ Representation \\ $\mathbf{z}$};
+    \path (hid.south west)+(-\blockdist, \halfblock) node  (hidmom) [state]  { $Q_\phi (\mathbf{z}| \mathbf{x})$ \\ moments: \\  $\boldsymbol{\mu_z}, \boldsymbol{\sigma_z^2}$};
+    \path (hid.north)+(0, 0.75*\blockdist) node  (noise) [state, text width=2.0em, minimum height=2.0em, ]  {noise $\boldsymbol\epsilon$};
+    \path (hid.south west)+(-\blockdist, -\blockdist) node (enc)[sensor] {Encoder};
+    % \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state,  text width=7em] {Observation \\ $\mathbf{x}$};    
+    \node (obs) at (-3*\blockdist, -3*\blockdist) [state,  text width=7em, minimum height=4.5em]   {Observation \\ $\mathbf{x}$}; 
+    \path (hid.south east)+(\blockdist, -\blockdist) node (dec) [sensor] {Decoder};
+    \node (rec) at (3*\blockdist, -3*\blockdist) [state,  text width=7em,  minimum height=4.5em] {$P_\theta (\mathbf{x}| \mathbf{z})$ \\ moments \\ (reconstruction) \\ $\boldsymbol{\mu_x}, \boldsymbol{\sigma_x^2}$};
+    \path (hid.east)+(1.0*\blockdist, 0) node (qz)[ann]  {$Q\Big(\mathbf{z}| \mathbf{x}, \boldsymbol \epsilon \Big)$};
+    %\path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state,  text width=7em] {$P_\theta (\mathbf{x}| \mathbf{z})$ \\ moments \\ (reconstruction) \\ $\boldsymbol{\mu_x}, \boldsymbol{\sigma_x^2}$};
+     %\path (obs.east)+(6*\blockdist,0 ) node (rec) [state] {$P_\theta (\mathbf{x}| \mathbf{z})$ \\ moments \\ (reconstruction) \\ $\boldsymbol{\mu_x}, \boldsymbol{\sigma_x^2}$};
+
+    \path [draw, ->] (enc.north) -- node [above] {} (hidmom);
+    \path[draw, ->] (hidmom.north east) to [bend left=40] node [right] {} (hid.north west);
+    \path [draw, ->] (noise.south) -- node [right] {} (hid);
+    \path [draw, ->] (obs.north east) -- node [] {} (enc.south);
+    \path [draw, ->] (hid.south east) -- node [above] {} (dec.north);
+    \path [draw, ->] (dec.south) -- node [] {} (rec);
+
+     \node (diff)[ann] at ($(obs)!0.5!(rec)$)  {$P\Big(\mathbf{x} | \boldsymbol{\mu_x}(\mathbf{z}), \boldsymbol{\sigma_x^2} (\mathbf{z}) \Big)$};
+     \node[below  = 0.25*\blockdist   of diff] (loss)[ann] {Loss};
+    
+    %\path (hid.south)  +(0,-2.25*\blockdist) node (diff) {Difference};
+     \path [optim] (hid) -- node [] {} (qz);
+      
+    \path [optim] (obs) -- node [above] {} (diff);
+    \path [optim] (rec) -- node [above] {} (diff);
+    
+    \path [optim] (qz)  to [bend left=60]  node [] {} (loss);
+    \path [optim ] (diff) -- node [] {} (loss);
+    
+  
+    \begin{pgfonlayer}{background}  
+       \path (obs.west |- noise.north)+(-0.5, 0.7) node (a) {};
+        \path(hid.south -| hid.east)+(+0.5,-0.3) node (b) {};
+        \path (rec.east |- loss.east)+(+0.5, -\halfblock) node (c) {};
+        \path[fill=yellow!20,rounded corners, draw=black!50, solid, line width=0.3mm]
+            (a) rectangle (c);           
+        \path (obs.north west)+(-0.2,0.2) node (a) {};
+    \end{pgfonlayer}
+    
+        \begin{pgfonlayer}{background}  
+       \path (hidmom.west |- noise.north)+(-0.8, 0.5) node (a1) {};
+       \path(hidmom.south -| hid.east)+(+0.3,-0.3) node (b1) {};
+        %\path (rec.east |- obs.east)+(+0.5, -\blockdist) node (c) {};
+        \path[fill=yellow!50,rounded corners, draw=black!50, solid, line width=0.3mm]
+            (a1) rectangle (b1); 
+        %\path (obs.north west)+(-0.2,0.2) node (a) {};
+    \end{pgfonlayer}
+       \node[below right = 0.05*\blockdist of a1, align=left, color=black!80] (repar) {  \Large \textsf{reparametrization} \\   
+        \Large \textsf{trick} };
+ 
+\end{tikzpicture}
+
+\end{document}

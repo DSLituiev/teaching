@@ -1,6 +1,7 @@
 % System Combination
 % Harish K Krishnamurthy <www.ece.neu.edu/~hkashyap/>
-\documentclass{article}
+%\documentclass[class=minimal,border=0pt]{standalone}
+\documentclass[class=scrreprt,border=0pt]{standalone}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,shadows}
@@ -19,34 +20,37 @@
 
 \tikzstyle{sensor}=[draw, fill=blue!20, text width=6em, 
     line width=0.25mm,
+    text centered, minimum height=3.0em,drop shadow]
+\tikzstyle{ann} = [fill=blue!5, text width=9em, 
+    line width=0.25mm,
     text centered, minimum height=3.5em,drop shadow]
-%\tikzstyle{ann} = [above, text width=5em, text centered]
-\tikzstyle{state} = [circle, text width=6em, fill=red!20, 
-    minimum height=6em, rounded corners, drop shadow]
+\tikzstyle{state} = [circle, text width=5.5em, fill=red!20, anchor=center,
+    minimum height=5.5em, rounded corners, drop shadow]
 \tikzstyle{cartouche} = [line width=0.25mm]
 %\tikzstyle{sc} = [sensor, text width=13em, fill=red!20, 
 %    minimum height=10em, rounded corners, drop shadow]
 
 % Define distances for bordering
-\def\blockdist{1.5}
-\def\halfblock{0.75}
+
+\def\blockdist{2.0}
+\def\halfblock{1.0}
 \def\edgedist{2.5}
 
 \begin{tikzpicture}[every node/.style={align=center,anchor=mid},
 		every path/.style={line width=1.25mm}]
-    \node (hid) [state]  {Hidden \\ Representation};
+    \node (hid) [state]  {Hidden \\ Representation  \\ \tiny low dimensional};
     \path (hid.south west)+(-\blockdist, -\blockdist) node (enc)[sensor] {Encoder};
-    \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state] {Observation};    
+    \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state] {Observation \\ \tiny high dimensional};    
     \path (hid.south east)+(\blockdist, -\blockdist) node (dec) [sensor] {Decoder};
-    \path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state] {Reconstruction};
+    \path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state] {Reconstruction \\ \tiny high dimensional};
 
     \path [draw, ->] (enc.north) -- node [above] {} (hid);
     \path [draw, ->] (obs.north east) -- node [above] {} (enc);
-    \path [draw, ->] (hid.south east) -- node [above] {} (dec);
+    \path [draw, ->] (hid.south east) -- node [above] {} (dec.north);
     \path [draw, ->] (dec.south east) -- node [above] {} (rec);
 
     
-     \node (diff) at ($(obs)!0.5!(rec)$)  {Difference};
+     \node (diff)[ann] at ($(obs)!0.5!(rec)$)  {Difference \\ (reconstruction error)};
     %\path (hid.south)  +(0,-2.25*\blockdist) node (diff) {Difference};
   
     \path [draw, ->, dashed] (diff) -- node [above] {} (obs);
