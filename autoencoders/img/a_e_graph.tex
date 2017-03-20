@@ -4,7 +4,7 @@
 \documentclass[class=scrreprt,border=0pt]{standalone}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,shadows}
+\usetikzlibrary{shapes,arrows,shadows, positioning}
 \usepackage{amsmath,bm,times}
 \newcommand{\mx}[1]{\mathbf{\bm{#1}}} % Matrix command
 \newcommand{\vc}[1]{\mathbf{\bm{#1}}} % Vector command
@@ -18,17 +18,17 @@
 
 % Define block styles used later
 
-\tikzstyle{sensor}=[draw, fill=blue!20, text width=6em, 
+\tikzstyle{optim}=[draw, ->, dashed, color=green!30!black]
+\tikzstyle{network}=[draw, fill=blue!20, text width=6em, 
     line width=0.25mm,
     text centered, minimum height=3.0em,drop shadow]
-\tikzstyle{ann} = [fill=blue!5, text width=9em, 
+\tikzstyle{ann} = [fill=red!50, 
     line width=0.25mm,
-    text centered, minimum height=3.5em,drop shadow]
-\tikzstyle{state} = [circle, text width=5.5em, fill=red!20, anchor=center,
-    minimum height=5.5em, rounded corners, drop shadow]
+    text centered, minimum height=2.5em,drop shadow]
+\tikzstyle{state} = [circle, text width=5.5em, minimum height=5.5em, 
+	fill=green!40, anchor=center,
+    rounded corners, drop shadow]
 \tikzstyle{cartouche} = [line width=0.25mm]
-%\tikzstyle{sc} = [sensor, text width=13em, fill=red!20, 
-%    minimum height=10em, rounded corners, drop shadow]
 
 % Define distances for bordering
 
@@ -38,32 +38,42 @@
 
 \begin{tikzpicture}[every node/.style={align=center,anchor=mid},
 		every path/.style={line width=1.25mm}]
-    \node (hid) [state]  {Hidden \\ Representation  \\ \tiny low dimensional};
-    \path (hid.south west)+(-\blockdist, -\blockdist) node (enc)[sensor] {Encoder};
-    \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state] {Observation \\ \tiny high dimensional};    
-    \path (hid.south east)+(\blockdist, -\blockdist) node (dec) [sensor] {Decoder};
-    \path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state] {Reconstruction \\ \tiny high dimensional};
-
+    \node (hid) [state]  {Hidden \\ Representation  \\ $\mathbf{z}$ };
+    \path (hid.south west)+(-\blockdist, -\blockdist) node (enc)[network] {Encoder $h(\cdot)$};
+    \path (enc.south west)+(-\blockdist, -\blockdist) node (obs)[state] {Observation \\ $\mathbf{x}$};    
+    \path (hid.south east)+(\blockdist, -\blockdist) node (dec) [network] {Decoder  $g(\cdot)$};
+    \path (dec.south east)+(\blockdist, -\blockdist) node (rec) [state] {Reconstruction\\ $\mathbf{r}$};
+    \path (hid.south)+(0, -1.0*\blockdist) node (qz)[ann]  {Constraint on $\mathbf{z}$ };
+    
     \path [draw, ->] (enc.north) -- node [above] {} (hid);
     \path [draw, ->] (obs.north east) -- node [above] {} (enc);
     \path [draw, ->] (hid.south east) -- node [above] {} (dec.north);
     \path [draw, ->] (dec.south east) -- node [above] {} (rec);
 
     
-     \node (diff)[ann] at ($(obs)!0.5!(rec)$)  {Difference \\ (reconstruction error)};
-    %\path (hid.south)  +(0,-2.25*\blockdist) node (diff) {Difference};
+     \node (diff)[ann] at ($(obs)!0.5!(rec)$)  {Reconstruction error  $L(\mathbf{x}, \mathbf{r})$};
+     
+     \node[below  = 0.25*\blockdist   of diff] (loss)[ann] {Loss};
+     
+    \path [optim ] (diff) -- node [] {} (loss);
+     
+    \path [optim] (hid) -- node [] {} (qz);
+     
+    \path [draw, ->, dashed] (obs) -- node [above] {} (diff);
+    \path [draw, ->, dashed] (rec) -- node [above] {} (diff);
   
-    \path [draw, ->, dashed] (diff) -- node [above] {} (obs);
-    \path [draw, ->, dashed] (diff) -- node [above] {} (rec);
-  
-    \begin{pgfonlayer}{background}  
-       \path (obs.west |- hid.north)+(-0.5, 1) node (a) {};
+    \begin{pgfonlayer}{background}
+    
+       \path (obs.west |- hid.north)+(-0.5, 0.5) node (a) {};
         \path(hid.south -| hid.east)+(+0.5,-0.3) node (b) {};
         \path (rec.east |- obs.east)+(+0.5, -\blockdist) node (c) {};
           
         \path[fill=yellow!20,rounded corners, draw=black!50, solid, line width=0.3mm]
             (a) rectangle (c);           
         \path (obs.north west)+(-0.2,0.2) node (a) {};
+        
+    \path [optim] (qz.south east)  to [bend left=60]  node [] {} (loss);
+    
     \end{pgfonlayer}
 \end{tikzpicture}
 
