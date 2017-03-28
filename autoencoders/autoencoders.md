@@ -96,7 +96,7 @@ $\qquad$ $\qquad$ $\quad$ retelling a story by heart
   <img src=img/tiger_representation.png alt="autoencoder:tiger" width="40%" height="40%"/>
 </p>
 
-_... is learning representations of the data that make it easier to extract useful information when building classifiers or other predictors_ (Bengio 2014).
+_... is learning representations of the data that make it easier to extract useful information when building classifiers or other predictors_ ([Bengio 2014](https://arxiv.org/abs/1206.5538)).
 
 Representations are stored in **filters** [CNNs]  or **weights** [general]
 
@@ -229,8 +229,8 @@ high dimensional reconstruction" width="50%" height="50%"/>
 # Applications of Autoencoders
 
  + network pre-training / semi-supervised learning
- + noise reduction
  + generation of new patterns
+ + noise reduction
  + anomaly detection 
    - autoencoders can return the probability of the data
  + data compression / dimensionality reduction
@@ -244,17 +244,8 @@ high dimensional reconstruction" width="50%" height="50%"/>
   <img src=img/Erhan2010_fig2.png alt="figure from Erhan et al., 2010" width="60%" height="60%"/>
 </p>
 
-Learning weights on unlabeled data improves classification performance in a smaller labeled dataset (Erhan et al., 2010).
+Learning weights on unlabeled data improves classification performance in a smaller labeled dataset ([Erhan et al., 2010](http://www.jmlr.org/papers/volume11/erhan10a/erhan10a.pdf)).
 On MNIST, using CNN
-
----
-
-# [Applications] Noise reduction
-
-
-<p align="center">
-  <img src=img/denoised_digits.png alt="denoised_digits from keras tutorial" width="100%" height="100%"/>
-</p>
 
 ---
 
@@ -269,7 +260,18 @@ source: [Stitchfix Blog](
 http://multithreaded.stitchfix.com/assets/images/blog/random_shirts3.png)
 
 **Practical caviat**: Generative adversarial networks (GANs, next lecture) usually produce sharper and more realistic reconstructions of natural images than AEs
- 
+
+---
+
+# [Applications] Noise reduction
+
+<p align="center">
+  <img src=img/denoised_digits.png alt="denoised_digits from keras tutorial" width="100%" height="100%"/>
+</p>
+
+source: [Keras tutorial on Autoencoders](
+https://blog.keras.io/building-autoencoders-in-keras.html)
+
 ---
 
 # Related architectures
@@ -292,6 +294,8 @@ Shelhamer, Long, and Darrell, 2016</a>
 
 Unilike autoencoders, FCNs have skip connections between 
 low-level feature maps and low-level reconstruction maps.
+
+Conceptually similar to the _denoising task_. Only labels are deemed 'essential', rest is treated as 'noise'.
 
 ---
 
@@ -351,8 +355,8 @@ https://blog.keras.io/building-autoencoders-in-keras.html)
  + In which case would you use Bernoulli distribution instead of Gaussian? Or L1 error? What do they assume?
  + Why neural net autoencoders are more expressive than PCA? Which PCA assumptions are dropped?
  +  How does CNN decoder maps a smaller image into a bigger?
----
 
+---
 # Architecture
 
 <p align="center">
