@@ -150,8 +150,8 @@ Autoencoders learn to approximate the **identity mapping** under some **constrai
 + **structural**: 
   - fewer hidden states (nodes) than dimensionality of the input ("undercomplete representation")
   
-+ **soft** (penalty, regularization) -- contributes to the loss
-  - regularization of states (not parameters!) e.g.:
++ **regularization** (penalty, soft constr.) -- contributes to the loss
+  - regularization of state values (not parameters!) e.g.:
     - L1 norm, $\sum |z_i| \;$: sparsity (e.g. sparse AE)
     - L2 norm, $\sum z_i^2 \;$: (e.g. PCA)
    - penalization of derivatives $\partial z_i/ \partial x_j$ -> stability; 
@@ -189,7 +189,7 @@ Constraints in AEs lead to the **compression** of data
    -  _loadings_ are both encoder's and decoder's weights
  + so that $m<d$, thus lossy compression
  + and reconstruction error is minimal:   $\mathrm{MSE} = ||\mathbf{r} - \mathbf{x}||^2$
- + constraint on weights: $||\mathrm{w}_i||^2 =1$
+ + constraint on loadings (not scores as in general AEs): $||\mathrm{w}_i||^2 =1$
  + variance of $\mathbf{s}_{i} >$  variance of $\mathbf{s}_{i+1}$
 
 ---
@@ -270,6 +270,29 @@ http://multithreaded.stitchfix.com/assets/images/blog/random_shirts3.png)
 
 **Practical caviat**: Generative adversarial networks (GANs, next lecture) usually produce sharper and more realistic reconstructions of natural images than AEs
  
+---
+
+# Related architectures
+
+## Fully conv. networks (image segmentation)
+
+<p align="center">
+
+<div id="images">
+  <img src=img/fcn1.png alt="Fully conv networks, source: https://arxiv.org/pdf/1605.06211.pdf" width="50%" height="50%"/>
+  <img src=img/fcn6.png alt="Fully conv networks, source: https://arxiv.org/pdf/1605.06211.pdf" width="40%" height="30%"/>
+</div>
+<p align="center" fontsize=26>
+<font size="4">
+<a href=https://arxiv.org/pdf/1605.06211.pdf>
+Shelhamer, Long, and Darrell, 2016</a>
+</font>
+</p>
+</p>
+
+Unilike autoencoders, FCNs have skip connections between 
+low-level feature maps and low-level reconstruction maps.
+
 ---
 
 # [Summary] Autoencoders
@@ -456,15 +479,16 @@ https://openai.com/blog/generative-models/#vae)
 
  + Why Does Unsupervised Pre-training Help Deep Learning? Erhan et al., 2010. [Journal of Machine Learning Research 11](http://www.jmlr.org/papers/volume11/erhan10a/erhan10a.pdf)
  
- + Auto-encoding variational Bayes. Kingma & Welling 2013.  arXiv:1312.6114 
+ + Auto-encoding variational Bayes. [Kingma & Welling 2013](https://arxiv.org/abs/1312.6114)
 
- + DRAW: A Recurrent Neural Network For Image Generation. Gregor et al., 2015
-    https://arxiv.org/pdf/1502.04623.pdf
+ + DRAW: A Recurrent Neural Network For Image Generation. [Gregor et al., 2015](https://arxiv.org/pdf/1502.04623.pdf)
 
- + Attend, Infer, Repeat: Fast Scene Understanding with Generative Models. Ali Eslami et al., 2016
-
-    https://arxiv.org/abs/1603.08575
+ + Attend, Infer, Repeat: Fast Scene Understanding with Generative Models. [Ali Eslami et al., 2016](https://arxiv.org/abs/1603.08575)
     
- + Importance Weighted Autoencoders. Burda et al., 2015. 
- 	https://arxiv.org/pdf/1509.00519.pdf
+ + Importance Weighted Autoencoders. [Burda et al., 2015.](
+ 	https://arxiv.org/pdf/1509.00519.pdf)
     
+    
+ + Fully Convolutional Networks for Semantic Segmentation.
+[Shelhamer, Long, and Darrell, 2016](
+https://arxiv.org/pdf/1605.06211.pdf)
