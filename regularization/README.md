@@ -1,4 +1,4 @@
-#Overfitting and regularization
+# Overfitting and regularization
 a lecture presented at the workshop "Demystifying Deep Learning", 
 Oakland, CA, USA, 2016/11/20
 
