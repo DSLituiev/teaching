@@ -276,7 +276,9 @@ https://blog.keras.io/building-autoencoders-in-keras.html)
 
 # Related architectures
 
-## Fully conv. networks (image segmentation)
+## Fully conv. networks 
+
+Task: **image segmentation** (supervised learning)
 
 <p align="center">
 
@@ -296,6 +298,7 @@ Unilike autoencoders, FCNs have skip connections between
 low-level feature maps and low-level reconstruction maps.
 
 Conceptually similar to the _denoising task_. Only labels are deemed 'essential', rest is treated as 'noise'.
+
 
 ---
 
