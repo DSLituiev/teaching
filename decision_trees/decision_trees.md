@@ -80,7 +80,7 @@ creditability|savings|balance|duration|$|purpose
 
 ### Decision Tree _per se_
 <p align="center">
-  <img src="bank-tree.png" alt="tree">
+  <img src="img/bank-tree.png" alt="tree">
 </p>
 
 ---
@@ -88,7 +88,7 @@ creditability|savings|balance|duration|$|purpose
 
 ### Decision Tree _per se_
 <p align="center">
-  <img src="bank-tree.png" alt="tree">
+  <img src="img/bank-tree.png" alt="tree">
 </p>
 
 |appr|savings|balance|duration|$|purpose|

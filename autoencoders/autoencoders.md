@@ -495,7 +495,9 @@ https://openai.com/blog/generative-models/#vae)
  + Importance Weighted Autoencoders. [Burda et al., 2015.](
  	https://arxiv.org/pdf/1509.00519.pdf)
     
-    
  + Fully Convolutional Networks for Semantic Segmentation.
 [Shelhamer, Long, and Darrell, 2016](
 https://arxiv.org/pdf/1605.06211.pdf)
+
+ + U-Net: Convolutional Networks for Biomedical Image Segmentation. 
+ [Ronneberger, Fischer, and Brox, 2015](https://arxiv.org/abs/1505.04597)
