@@ -1,7 +1,7 @@
 
 <h1>
 <p align="center" fontsize=26>
-Decision trees in classification
+Decision trees for classification
 </p>
 </h1>
 
@@ -41,11 +41,12 @@ Dmytro (Dima) Lituiev
 
 # Predicting Bob's dating app behavior
 
-age|sex|religion|smokes|action
--|-|-|--|----|-
-33|f|agnosticism|no|texted
-23|f|atheism|yes|ignored
-25|f|catholicism|no|texted
+
+|age|sex|religion|smokes|action|
+| --| - | ------ | -----| -----|
+|33|f|agnosticism|no|texted|
+|23|f|atheism|yes|ignored|
+|25|f|catholicism|no|texted|
 
 ### Task:
 predict `action` from all other columns
@@ -70,8 +71,9 @@ represent classification **as if it were** a decision process guided by a flowch
 # Example: drug use in OKCupid data
 
 _we will apply DT classification to predict drug use_:
+
 age|sex|religion|"music"|smokes|drugs
--|-|-|--|----|-
+---|---|--------| -------|----|---
 33|m|agnosticism|True|no|never
 43|m|agnosticism|False|no|sometimes
 62|m|other|True|no|sometimes
@@ -175,7 +177,7 @@ https://pollev.com/DIMALITUIEV289
 </p>
 
 age|sex|religion|likes_cats|smokes|drugs
--|-|-|--|----|-
+---|---|--------|----------|------|----
 22|f|atheism|False|yes|?
 
 _what is the expected drug status of this person?_
@@ -228,24 +230,23 @@ see [`sklearn` Decision Trees user guide](http://scikit-learn.org/stable/modules
 1. convert a `pandas` data frame to one-hot encoding
 
 
-	features_onehot = pd.get_dummies(features)
+    features_onehot = pd.get_dummies(features)
     
 2. create a classifier instance
 
 
-	dtree = DecisionTreeClassifier(max_depth=3, 
+    dtree = DecisionTreeClassifier(max_depth=3, 
     min_samples_leaf=20, criterion="gini")
 
 3. fit
 
-
-	dtree.fit(features_onehot, outcome)
+    dtree.fit(features_onehot, outcome)
 
 4. visualize
 5. predict
 
 
-	dtree.predict(features_onehot_test)
+    dtree.predict(features_onehot_test)
     
 ---
 
