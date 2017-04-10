@@ -1,0 +1,80 @@
+% Hierarchical diagram
+% Author: cfr
+\documentclass[tikz,border=10pt]{standalone}
+\usepackage{forest}
+\usetikzlibrary{arrows.meta, shapes.geometric, calc, shadows}
+
+\colorlet{mygreen}{green!75!black}
+\colorlet{col1in}{red!30}
+\colorlet{col1out}{red!40}
+\colorlet{col2in}{mygreen!40}
+\colorlet{col2out}{mygreen!50}
+\colorlet{col3in}{blue!30}
+\colorlet{col3out}{blue!40}
+\colorlet{col4in}{mygreen!20}
+\colorlet{col4out}{mygreen!30}
+\colorlet{col5in}{blue!10}
+\colorlet{col5out}{blue!20}
+\colorlet{col6in}{blue!20}
+\colorlet{col6out}{blue!30}
+\colorlet{col7out}{orange}
+\colorlet{col7in}{orange!50}
+\colorlet{col8out}{orange!40}
+\colorlet{col8in}{orange!20}
+\colorlet{linecol}{blue!60}
+
+\begin{document}
+\pgfkeys{/forest,
+  rect/.append style   = {rectangle, rounded corners = 2pt,
+                         inner color = col6in, outer color = col6out},
+  ellip/.append style  = {ellipse, inner color = col5in,
+                          outer color = col5out},
+  orect/.append style  = {rect, font = \sffamily\bfseries\LARGE,
+                         text width = 50pt, text centered,
+                         minimum height = 10pt, outer color = col1out,
+                         inner color=col1in},
+  oellip/.append style = {ellip, inner color = col8in, outer color = col8out,
+                          font = \sffamily\bfseries\large, text centered}}
+\begin{forest}
+  for tree={
+      font=\sffamily\bfseries,
+      line width=1pt,
+      draw=linecol,
+      ellip,
+      align=center,
+      child anchor=north,
+      parent anchor=south,
+      drop shadow,
+      l sep+=20pt,
+      s sep+=55pt,
+      edge path={
+        \noexpand\path[color=linecol, rounded corners=5pt,
+          >={Stealth[length=10pt]}, line width=3pt, ->, \forestoption{edge}]
+          (!u.parent anchor) -- +(0,-5pt) -|
+          (.child anchor)\forestoption{edge label};
+        },
+        where level={0}{s sep+=90pt}{},
+        if n={1}{
+          edge path={
+            \noexpand\path[color=linecol, rounded corners=5pt,
+              >={Stealth[length=10pt]}, line width=3pt, ->,
+              \forestoption{edge}]
+              (!u.west) -| (.child anchor) node[pos=.2, above] {Y};
+            },
+        }{
+          edge path={
+            \noexpand\path[color=linecol, rounded corners=5pt,
+              >={Stealth[length=10pt]}, line width=3pt, dash dot, ->,
+              \forestoption{edge}]
+              (!u.east) -| (.child anchor) node[pos=.2, above] {N};
+            },
+        }
+      {},
+  }
+ [
+ {smoker== True?}
+ [{drug+ : 1683 \\ drug$-$ : 1758}, inner color=col1in, outer color=col1out ]
+ [{drug+ :1953 \\ drug$-$ : 12127}, inner color=col4in, outer color=col4out ]
+  ]
+\end{forest}
+\end{document}

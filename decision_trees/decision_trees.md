@@ -1,36 +1,37 @@
 
 <h1>
 <p align="center" fontsize=26>
-Decision trees
+Decision trees in classification
 </p>
 </h1>
-
-
 <p align="center" fontsize=26>
-<font size="6">
-<br>
+<font size="5">
 Practice teach @ General Assembly
+<br>
 Dmytro (Dima) Lituiev
+<br>
 </font>
 </p>
 
 ---
 
 # Learning objectives
+- be able to explain how classification is performed with decision trees
+- be able to build a decision tree
+- be able to visualize decision trees
 
 ---
 
 # Plan
 
-+ What is a decision tree applied to classification?
-+ How prediction works with DT? 
-
-+ Training a decision tree
-+ Visualizing decision trees
-+ Application domain
-
-
-https://pollev.com/login
++ What is a DT as applied to classification?
++ How 
+  - prediction works?  
+  - training works with a DT?
+  - to visuale a DT?
++ Why and when to use?
+  - Advantages & disadvantages of DTs
+  - Application domain
 
 ---
 
@@ -41,83 +42,166 @@ https://pollev.com/login
   <img src="img/dating_tree.png" alt="tree">
 </p>
 
+**apporach**: represent classification **as if it were** 
+a decision process / set of rules
+
 
 ---
+# Example: drug use in OKCupid data
 
-# Terminology related to Decision Trees
-
-+ **Attribute** is same as _feature_, _independent_/_exogenous_ var., X 
-+ **Root Node** represents entire data set, which further gets divided into two or more homogeneous sets.
-+ **Splitting**: dividing a node into two or more sub-nodes.
-+ **Decision vs. Terminal node**: When a sub-node splits into further sub-nodes, then it is called **decision node**; otherwise it is called **Leaf or Terminal node**.
-+ **Pruning**: removing sub-nodes of a decision node. Opposite process of splitting.
-+ **Branch / Sub-Tree**: A sub section of entire tree is called branch or sub-tree.
-[Source](https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/)
-
----
-# Decision Trees for Classification
-
-Classification expressed as a **set of rules**.
-
-Given: a set of _features / attributes_
-Predict: value of _outcome variable_
-
----
-# Example: predict bank credit approval
-
-
-creditability|savings|balance|duration|$|purpose
+_we will apply DT classification to predict drug use_:
+age|sex|religion|"music"|smokes|drugs
 -|-|-|--|----|-
-1|1|4|21|2241|2
-1|3|1|24|2828|2
-0|1|1|45|11816|9
-0|5|1|24|1371|0
-1|1|4|24|5103|3
+33|m|agnosticism|True|no|never
+43|m|agnosticism|False|no|sometimes
+62|m|other|True|no|sometimes
+22|f|catholicism|False|no|never
+23|f|other|True|no|never
 
 ---
+# Building a tree: (1) splitting a node
 
-# Visualization of the results 
++ Take all data
++ Find a feature that partitions the set by the target best 
 
-### Decision Tree _per se_
+
 <p align="center">
-  <img src="img/bank-tree.png" alt="tree">
+  <img src="img/stump_drug_ideal.png" height=65% width = 65%  alt="drugsideal">
+<br>
+</p>
+
+
+---
+# Splitting a node
+
+
+<h3>
+<p align="center">
+Try all possible features:
+<br>
+<br>
+Which split is better?
+</p>
+</h1>
+
+
+<p align="center">
+ <img src="img/stump_drug_music.png" height=55% width = 55%  alt="drugs_dogs">
+<br>
+</p>
+
+<h3>
+<p align="center">
+or
+</p>
+</h1>
+
+<p align="center"> 
+<img src="img/stump_drug_smokes.png" height=55% width = 55%  alt="drugs_smokes">
 </p>
 
 ---
-# Visualization of the results 
+# Splitting a node
 
-### Decision Tree _per se_
+
 <p align="center">
-  <img src="img/bank-tree.png" alt="tree">
+
+  <img src="img/drugs_smokes.png" height=35% width = 35%  alt="drugs_smokes">
+
+
+ <img src="img/drugs_music.png" height=35% width = 35%  alt="drugs_dogs">
+
 </p>
 
-|appr|savings|balance|duration|$|purpose|
-|--|--|--|--|--|--|
-|1|1|1|6|1872|2|
++ red: drug users $\quad$ green: non-users
++ left: left node $\;\qquad$ right: right node
+
+
+### Metric / 'impurity score' : 
++ **entropy gain**:  $\qquad$ $H(p_y) - \sum_x p_x H_x(p_{yx}) =$
+   $\qquad \qquad \;$  $= \sum_y p_{y} \cdot \log p_{y} - \sum_x p_x (\sum_y p_{y/x} \cdot \log p_{y/x})$
++ **Gini index**: covariance of feature & target
 
 
 ---
 
 # Training
 
-##### Initialization:
-+ Assign all samples to the root node
+<p align="center">
+  <img src="img/dt_training_y.png" height=55% width = 50%  alt="training of decision trees">
 
-##### Recursion:
-+ check stopping creteria and stop if necessary
-+ compute gain in precision due to split on each feature
-+ subdivide the node by the feature that maximizes precision
+</p>
 
-#### Stopping creteria:
-+ All samples within node belong to the same class
-+ No more attributes to be selected
-+ Pre-set depth is reached 
-+ Pre-set min number of examples per node reached
+repeat node splitting recursively
+
+---
+
+https://pollev.com/DIMALITUIEV289
+
+---
+
+# Visualization of the results 
+
+<p align="center">
+  <img src="img/drug3.png" alt="tree">
+</p>
+
+---
+# Visualization of the results 
+
+<p align="center">
+  <img src="img/drug3.png" alt="tree">
+</p>
+
+age|sex|religion|likes_cats|smokes|drugs
+-|-|-|--|----|-
+22|f|atheism|False|yes|?
+
+_what is the expected drug status of this person?_
+
+
+---
+
+# Pros and Cons
+
+## Pros:
+
++ easy to interprete
++ requires little data normalization
++ handles both numerical and categorical data
++ easily handles multi-output problem
+
+
+## Cons:
+
++ easy to overfit / high variance
+  - especially with large number of features
+  - use an ensemble of trees
+
++ low expressivity: 
+ unable to handle feature independence as in XOR, e.g.:
+  (cat lovers & smokers)$\cup$(cat haters & non-smokers) $\rightarrow$ drug+
+
+---
+
+# Applications
+
++ both classification and regression
++ ML-assisted decision making: 
+  - medical decision-making
+  - business analysis
+  - policy-making
+  - ...
+  
++ as part of ensemble: more robust ML algorithms:
+  - random forest
+  - gradient boosting machines
+
 
 ---
 
 # Example in `sklearn`
-see 
+see [`sklearn` Decision Trees user guide](http://scikit-learn.org/stable/modules/tree.html#tree)
 
 1. convert a `pandas` data frame to one-hot encoding
 
@@ -143,34 +227,13 @@ see
     
 ---
 
-### Step one: convert to one-hot encoding
+# Task
 
----
++ Predict drug use in the `validation` set 
+  - Which preprocessing steps are required?
 
-# Pro and Contra
-
-## Pro:
-
-+ easy to interprete
-
-
-## Contras and antidotes
-
-+ easy to overfit / high variance
-  - use an ensemble of trees
-
-+ low expressivity: unable to handle feature co-dependencies
-
----
-
-# Applications
-
----
-
----
-
-
-# Learning resources
-
-+ [Tutorial @analyticsvidhya](https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/)
-+ 
++ Increase `max_depth` to `5` and `7`
+  - Visualize the obtained trees
+  - How does performance in `validation` set change?
+  - Which features appear in the tree nodes? which don't?
+  
