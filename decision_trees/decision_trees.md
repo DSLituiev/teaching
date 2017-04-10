@@ -4,8 +4,10 @@
 Decision trees in classification
 </p>
 </h1>
+
 <p align="center" fontsize=26>
-<font size="5">
+<font size="6">
+<br>
 Practice teach @ General Assembly
 <br>
 Dmytro (Dima) Lituiev
@@ -17,25 +19,27 @@ Dmytro (Dima) Lituiev
 
 # Learning objectives
 - be able to explain how classification is performed with decision trees (DTs)
-- be able to build a DT
-- be able to visualize a DT
+- be able to build DTs
+- be able to visualize DTs
 
 ---
 
 # Plan
 
 + What is a DT as applied to classification?
-+ How 
-  - prediction works?  
-  - training works with a DT?
-  - to visuale a DT?
++ How to do:
+  - prediction?  
+  - training?
+  - visualization with DTs?
 + Why and when to use?
   - Advantages & disadvantages of DTs
   - Application domain
-
+  
++ Lab: 
+  - train, visualize and predict using a DT yourself!
 ---
 
-# Bob on a dating app
+# Predicting Bob's dating app behavior
 
 age|sex|religion|smokes|action
 -|-|-|--|----|-
@@ -44,20 +48,22 @@ age|sex|religion|smokes|action
 25|f|catholicism|no|texted
 
 ### Task:
-predict action from all other columns
+predict `action` from all other columns
+
+### Approach: 
+build a flowchart
 
 ---
 
-# Bob on a dating app
-
+# Predicting Bob's dating app behavior
 
 
 <p align="center">
   <img src="img/dating_tree.png" alt="tree">
 </p>
 
-**apporach**: represent classification **as if it were** 
-a decision process / set of rules
+### **apporach**:
+represent classification **as if it were** a decision process guided by a flowchart (set of rules)
 
 
 ---
