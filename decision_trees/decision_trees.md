@@ -16,9 +16,9 @@ Dmytro (Dima) Lituiev
 ---
 
 # Learning objectives
-- be able to explain how classification is performed with decision trees
-- be able to build a decision tree
-- be able to visualize decision trees
+- be able to explain how classification is performed with decision trees (DTs)
+- be able to build a DT
+- be able to visualize a DT
 
 ---
 
@@ -35,7 +35,21 @@ Dmytro (Dima) Lituiev
 
 ---
 
-# Bob and Alice on dating app
+# Bob on a dating app
+
+age|sex|religion|smokes|action
+-|-|-|--|----|-
+33|f|agnosticism|no|texted
+23|f|atheism|yes|ignored
+25|f|catholicism|no|texted
+
+### Task:
+predict action from all other columns
+
+---
+
+# Bob on a dating app
+
 
 
 <p align="center">
@@ -62,7 +76,8 @@ age|sex|religion|"music"|smokes|drugs
 # Building a tree: (1) splitting a node
 
 + Take all data
-+ Find a feature that partitions the set by the target best 
++ Find **a feature** that partitions the set
+  by **the  target** in the best possible way 
 
 
 <p align="center">
@@ -101,23 +116,20 @@ or
 </p>
 
 ---
-# Splitting a node
+# Splitting a node:  feature/target coocurrence in mosaic plot
 
 
 <p align="center">
 
-  <img src="img/drugs_smokes.png" height=35% width = 35%  alt="drugs_smokes">
+ <img src="img/mosaic_drugs_music.png" height=33% width = 33%  alt="drugs_dogs">
 
-
- <img src="img/drugs_music.png" height=35% width = 35%  alt="drugs_dogs">
+  <img src="img/mosaic_drugs_smokes.png" height=33% width = 33%  alt="drugs_smokes">
 
 </p>
-
-+ red: drug users $\quad$ green: non-users
-+ left: left node $\;\qquad$ right: right node
+ drug use is independent of mention of 'music', but is different between smokers and non-smokers
 
 
-### Metric / 'impurity score' : 
+#### Paritioning quality metric / 'impurity score' : 
 + **entropy gain**:  $\qquad$ $H(p_y) - \sum_x p_x H_x(p_{yx}) =$
    $\qquad \qquad \;$  $= \sum_y p_{y} \cdot \log p_{y} - \sum_x p_x (\sum_y p_{y/x} \cdot \log p_{y/x})$
 + **Gini index**: covariance of feature & target
@@ -134,7 +146,10 @@ or
 
 repeat node splitting recursively
 
+
 ---
+
+# Quiz
 
 https://pollev.com/DIMALITUIEV289
 
@@ -159,6 +174,7 @@ age|sex|religion|likes_cats|smokes|drugs
 
 _what is the expected drug status of this person?_
 
+https://pollev.com/DIMALITUIEV289
 
 ---
 
@@ -176,7 +192,7 @@ _what is the expected drug status of this person?_
 
 + easy to overfit / high variance
   - especially with large number of features
-  - use an ensemble of trees
+  - antidote: an ensemble of trees
 
 + low expressivity: 
  unable to handle feature independence as in XOR, e.g.:
@@ -187,7 +203,7 @@ _what is the expected drug status of this person?_
 # Applications
 
 + both classification and regression
-+ ML-assisted decision making: 
++ ML-assisted / informed decision making: 
   - medical decision-making
   - business analysis
   - policy-making
@@ -227,10 +243,11 @@ see [`sklearn` Decision Trees user guide](http://scikit-learn.org/stable/modules
     
 ---
 
-# Task
+# Lab
 
 + Predict drug use in the `validation` set 
   - Which preprocessing steps are required?
+  - Calculate precision and recall
 
 + Increase `max_depth` to `5` and `7`
   - Visualize the obtained trees
